@@ -16,23 +16,23 @@ builder organization --name Bluedata
 ######## Identification #############
 # App id, name, version, description, group (category)
 ######################################
-catalog new --distroid helloworld --name "Hello World on Centos"  \
-            --desc "http service running Hello World page"    \
+catalog new --distroid pentaho --name "Pentaho on bluedata"  \
+            --desc "pentaho will run on bluedata"    \
             --categories Greetings --version 3.0
 
 ####### Supported Roles ############
 # All possible roles supported in the app
 #######################################
-role add webserver 1
+#role add webserver 1
 
 ############## All registered services #########
 # All possible services running on any of the nodes. 
 # Display option creates a clickable link for that http based service
 ##################################################
-service add --srvcid httpd --name "HelloWorld" --scheme "http" --port 80 \
-            --path "/" --display  \
-            --sysctl httpd \
-            --onroles webserver   
+#service add --srvcid httpd --name "HelloWorld" --scheme "http" --port 80 \
+#           --path "/" --display  \
+#            --sysctl httpd \
+#           --onroles webserver   
 
 #################### CONTAINER CONFIGURATION SCRIPT (STARTSCRIPT) #################################
 #  This section generates or loads the startscript that runs on each container                     # 
@@ -56,15 +56,15 @@ appconfig autogen --new --configapi 5
 # These files are stored in a metadata repo until cluster creation 
 # After a cluster is created, it will be copied to specified destinations
 ############
-appconfig autogen --pkgfile index.html --dest /var/www/html/index.html
+#appconfig autogen --pkgfile index.html --dest /var/www/html/index.html
 
 ########### Update files with runtime information ############
 # Replace template variables with runtime values 
 ###############################################################
-appconfig autogen --replace /var/www/html/index.html \
-                  --pattern @@@@FQDN@@@@  --macro GET_NODE_FQDN  \
-                  --pattern @@@@CORES@@@@ --macro GET_TOTAL_VCORES \
-                  --pattern @@@@MEMORY@@@@ --macro GET_TOTAL_VMEMORY_MB
+#appconfig autogen --replace /var/www/html/index.html \
+#                  --pattern @@@@FQDN@@@@  --macro GET_NODE_FQDN  \
+#                  --pattern @@@@CORES@@@@ --macro GET_TOTAL_VCORES \
+#                  --pattern @@@@MEMORY@@@@ --macro GET_TOTAL_VMEMORY_MB
 
 ########### Copy init.d or systemctl (service) scripts to /etc/init.d ####
 # To automatically register and start/stop services create and copy systemd scripts
@@ -90,7 +90,7 @@ logo file --filepath helloworld-logo.png
 #  This section creates docker tgz and bin file                              #
 ##############################################################################
 image build --basedir image/centos --imgversion 1.0 --os centos7
-catalog save --filepath staging/helloworld-centos.json --force
+catalog save --filepath staging/pentaho-centos.json --force
 sources package
 catalog package
 ################################################################################
